@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Petani Kopi Giri Mekar</title>
+    <!-- Google Fonts & Chart.js CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-brown: #5C4033;
+            --dark-brown: #3B271F;
+            --accent-green: #2E5A36;
+            --light-green: #4E8755;
+            --bg-color: #F4F1EA;
+            --card-bg: #FFFFFF;
+            --text-color: #333333;
+            --border-color: #D3C5B4;
+            --success: #27AE60;
+            --danger: #C0392B;
+            --danger-hover: #A93226;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark-brown), var(--primary-brown));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #E2D7C5;
+        }
+
+        nav {
+            background-color: var(--accent-green);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: white;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--light-green);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        h2.section-title {
+            color: var(--primary-brown);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 5px rgba(46, 90, 54, 0.3);
+        }
+
+        .btn {
+            background-color: var(--accent-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--light-green);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #D4EDDA;
+            color: #155724;
+            border: 1px solid #C3E6CB;
+        }
+
+        .search-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table th {
+            background-color: var(--primary-brown);
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #F9F8F5;
+        }
+
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            max-width: 700px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sistem Informasi Petani Kopi Giri Mekar</h1>
+        <p>Manajemen Data Petani dan Hasil Panen Kopi Berkualitas</p>
+    </header>
+
+    <nav>
+        <a href="#beranda">Beranda</a>
+        <a href="#data-petani">Data Petani</a>
+        <a href="#data-panen">Data Panen</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+
+    <div class="container">
+        <!-- Notifikasi Pesan -->
+        <div id="alertSuccess" class="alert alert-success">Data petani berhasil diproses!</div>
+
+        <!-- Form Input Data Petani -->
+        <section id="data-petani" class="card">
+            <h2 class="section-title">Form Input Data Petani</h2>
+            <form id="farmerForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="namaPetani">Nama Petani:</label>
+                        <input type="text" id="namaPetani" placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label for="idPetani">NIK atau ID Petani:</label>
+                        <input type="text" id="idPetani" placeholder="Masukkan NIK / ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat">Alamat:</label>
+                        <input type="text" id="alamat" placeholder="Masukkan alamat">
+                    </div>
+                    <div class="form-group">
+                        <label for="luasLahan">Luas Lahan (Hektare):</label>
+                        <input type="number" step="0.01" id="luasLahan" placeholder="Contoh: 1.5">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Simpan Data</button>
+            </form>
+        </section>
+
+        <!-- Tabel Data Petani dengan Tombol Hapus -->
+        <section class="card">
+            <h2 class="section-title">Tabel Informasi Data Petani</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari data petani berdasarkan nama atau ID...">
+            </div>
+            <div class="table-responsive">
+                <table id="farmerTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>ID Petani</th>
+                            <th>Nama Petani</th>
+                            <th>Alamat</th>
+                            <th>Luas Lahan (Ha)</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="farmerTableBody">
+                        <!-- Data dinamis via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Grafik Visualisasi Data -->
+        <section id="data-panen" class="card">
+            <h2 class="section-title">Grafik Luas Lahan Petani Kopi</h2>
+            <div class="chart-container">
+                <canvas id="farmerChart"></canvas>
+            </div>
+        </section>
+
+        <section id="kontak" class="card">
+            <h2 class="section-title">Kontak Pengelola</h2>
+            <p><strong>Kelompok Tani Kopi Giri Mekar</strong></p>
+            <p>Desa Wisata Kopi Giri Mekar, Kabupaten Bandung, Jawa Barat</p>
+            <p>Email: info@girimekarcoffee.org | Telepon: 0812-3456-7890</p>
+        </section>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Simulasi database menggunakan LocalStorage
+        let farmersData = JSON.parse(localStorage.getItem('farmersData')) || [
+            { id: 'P001', name: 'Bapak Ujang', address: 'Blok A Giri Mekar', land: 1.5 },
+            { id: 'P002', name: 'Bapak Asep', address: 'Blok B Giri Mekar', land: 2.0 },
+            { id: 'P003', name: 'Ibu Siti', address: 'Blok C Giri Mekar', land: 1.2 }
+        ];
+
+        let chartInstance = null;
+
+        function renderTable(data = farmersData) {
+            const tbody = document.getElementById('farmerTableBody');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center;">Tidak ada data ditemukan.</td></tr>`;
+                return;
+            }
+
+            data.forEach((farmer, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${farmer.id}</td>
+                    <td>${farmer.name}</td>
+                    <td>${farmer.address}</td>
+                    <td>${farmer.land} Ha</td>
+                    <td><button class="btn-danger" onclick="deleteFarmer(${index})">Hapus</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('farmerChart').getContext('2d');
+            const labels = farmersData.map(f => f.name);
+            const landData = farmersData.map(f => f.land);
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Luas Lahan (Hektare)',
+                        data: landData,
+                        backgroundColor: '#2E5A36',
+                        borderColor: '#3B271F',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Fungsi Tambah Data & Validasi
+        document.getElementById('farmerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('namaPetani').value.trim();
+            const id = document.getElementById('idPetani').value.trim();
+            const address = document.getElementById('alamat').value.trim();
+            const land = parseFloat(document.getElementById('luasLahan').value);
+
+            if (!name || !id) {
+                alert('Peringatan: Nama Petani dan NIK/ID Petani wajib diisi!');
+                return;
+            }
+
+            if (isNaN(land) || land <= 0) {
+                alert('Peringatan: Luas lahan harus berupa angka yang valid!');
+                return;
+            }
+
+            const newFarmer = { id: id, name: name, address: address || '-', land: land };
+            farmersData.push(newFarmer);
+            localStorage.setItem('farmersData', JSON.stringify(farmersData));
+
+            renderTable();
+            renderChart();
+
+            const alertBox = document.getElementById('alertSuccess');
+            alertBox.textContent = 'Data petani berhasil ditambahkan ke sistem!';
+            alertBox.style.display = 'block';
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 3000);
+
+            document.getElementById('farmerForm').reset();
+        });
+
+        // ----------------------------------------------------
+        // FITUR HAPUS DATA (DI SINI IMPLEMENTASINYA)
+        // ----------------------------------------------------
+        function deleteFarmer(index) {
+            if (confirm('Apakah Anda yakin ingin menghapus data petani ini?')) {
+                farmersData.splice(index, 1);
+                localStorage.setItem('farmersData', JSON.stringify(farmersData));
+                
+                renderTable();
+                renderChart();
+
+                const alertBox = document.getElementById('alertSuccess');
+                alertBox.textContent = 'Data petani berhasil dihapus dari sistem!';
+                alertBox.style.display = 'block';
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Fitur Pencarian
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const keyword = e.target.value.toLowerCase();
+            const filteredData = farmersData.filter(farmer => 
+                farmer.name.toLowerCase().includes(keyword) || 
+                farmer.id.toLowerCase().includes(keyword)
+            );
+            renderTable(filteredData);
+        });
+
+        // Inisialisasi awal
+        window.onload = function() {
+            renderTable();
+            renderChart();
+        };
+    </script>
+</body>
+</html>
