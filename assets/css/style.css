@@ -1,0 +1,516 @@
+:root {
+    --primary-brown: #5C4033;
+    --dark-brown: #3B271F;
+    --accent-green: #2E5A36;
+    --light-green: #4E8755;
+    --bg-color: #F4F1EA;
+    --card-bg: #FFFFFF;
+    --text-color: #333333;
+    --border-color: #D3C5B4;
+    --success: #27AE60;
+    --danger: #C0392B;
+    --danger-hover: #A93226;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, var(--dark-brown), var(--primary-brown));
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1rem;
+    color: #E2D7C5;
+}
+
+nav {
+    background-color: var(--accent-green);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav a {
+    color: white;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--light-green);
+}
+
+/* Halaman ini memakai anchor; scroll-margin-top memberi jarak saat melompat. */
+header,
+section[id] {
+    scroll-margin-top: 1rem;
+}
+
+/* State aktif singkat saat tautan navigasi diklik. */
+nav a:active {
+    background-color: var(--dark-brown);
+}
+
+/* Fokus keyboard pada navigasi agar bisa dipakai tanpa mouse. */
+nav a:focus-visible {
+    outline: 2px solid white;
+    outline-offset: -4px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+}
+
+h2.section-title {
+    color: var(--primary-brown);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--accent-green);
+    padding-bottom: 0.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-brown);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 5px rgba(46, 90, 54, 0.3);
+}
+
+.btn {
+    background-color: var(--accent-green);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--light-green);
+}
+
+/* Tombol aksi tabel. Edit dan Hapus memakai ukuran yang sama;
+   hanya warnanya yang berbeda (hijau vs merah). */
+.btn-edit,
+.btn-danger {
+    display: inline-block;
+    /* appearance: none membuang gaya tombol bawaan browser. */
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn-edit {
+    background-color: var(--accent-green);
+    color: white;
+    border-color: var(--accent-green);
+}
+
+.btn-edit:hover {
+    background-color: var(--light-green);
+    border-color: var(--light-green);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-hover);
+    border-color: var(--danger-hover);
+}
+
+/* Fokus keyboard terlihat jelas pada kedua tombol aksi. */
+.btn-edit:focus-visible,
+.btn-danger:focus-visible {
+    outline: 2px solid var(--primary-brown);
+    outline-offset: 2px;
+}
+
+/* Sel aksi menjaga dua tombol tetap sejajar dalam satu baris.
+   Jarak dibuat lewat margin agar td tetap berperilaku sebagai sel tabel. */
+td.actions {
+    white-space: nowrap;
+}
+
+td.actions .btn-edit {
+    margin-right: 0.5rem;
+}
+
+/* Tombol sekunder dipakai untuk aksi pendukung seperti Batal. */
+.btn-secondary {
+    background-color: var(--primary-brown);
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-brown);
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    display: none;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #D4EDDA;
+    color: #155724;
+    border: 1px solid #C3E6CB;
+}
+
+/* Pesan kesalahan memakai warna merah agar mudah dibedakan dari pesan sukses. */
+.alert-error {
+    background-color: #F8D7DA;
+    color: #721C24;
+    border: 1px solid #F5C6CB;
+}
+
+.search-bar {
+    margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    /* Batas lebar container: tabel lebar menggulir di dalam kotaknya
+       sendiri, bukan membuat seluruh halaman bergeser. */
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+/* Lebar minimum tabel menjaga kolom tetap terbaca; scroll hanya di container. */
+#farmerTable,
+#harvestTable {
+    min-width: 620px;
+}
+
+table th, table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Angka luas lahan dan jumlah panen lebih mudah dibaca rata kanan. */
+table th.numeric,
+table td.numeric {
+    text-align: right;
+}
+
+table th {
+    background-color: var(--primary-brown);
+    color: white;
+}
+
+table tr:hover {
+    background-color: #F9F8F5;
+}
+
+/* Empty state pada tabel memakai tinggi dan warna teks pendukung. */
+td.empty-state {
+    text-align: center;
+    color: #6b6b6b;
+    padding: 1.5rem 1rem;
+}
+
+/* Wadah grafik batang vertikal. Area batang punya tinggi tetap agar
+   persentase tinggi batang punya acuan yang jelas. */
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1rem;
+    /* Ruang atas untuk angka yang mengambang di atas batang tertinggi. */
+    padding: 2rem 0.5rem 0;
+    border-bottom: 2px solid var(--border-color);
+    overflow-x: auto;
+}
+
+/* Satu kolom mewakili satu petani: area batang dan label nama. */
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 72px;
+    max-width: 96px;
+    text-align: center;
+}
+
+/* Area batang berfungsi sebagai acuan tinggi persentase batang.
+   Posisi relative membuat batang bisa ditempelkan ke dasar area,
+   sehingga tinggi persentase selalu dihitung dari tinggi area ini. */
+.bar-area {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+/* Batang hijau tumbuh dari bawah ke atas. Tinggi diatur JavaScript
+   dalam persen terhadap .bar-area yang tingginya sudah pasti. */
+.bar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 48px;
+    background-color: var(--accent-green);
+    border: 1px solid var(--dark-brown);
+    border-radius: 4px 4px 0 0;
+    transition: background 0.3s;
+}
+
+.bar:hover {
+    background-color: var(--light-green);
+}
+
+/* Nilai luas lahan mengambang tepat di atas batang tanpa mengubah tingginya.
+   Lebar dibatasi selebar kolom agar nilai panjang membungkus, bukan meluber. */
+.bar-value {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0.25rem;
+    max-width: 96px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    line-height: 1.15;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Nama petani di bawah batang; teks panjang dibungkus, tidak dipotong. */
+.bar-label {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Keterangan sumbu dan satuan agar angka tidak bergantung pada warna. */
+.chart-caption {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #6b6b6b;
+    text-align: center;
+}
+
+.empty-state {
+    width: 100%;
+    text-align: center;
+    color: #6b6b6b;
+    padding: 2rem 0;
+}
+
+/* Grafik batang horizontal: setiap baris adalah satu petani. */
+.hbar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.hbar-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 90px;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.hbar-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark-brown);
+    word-break: break-word;
+}
+
+/* Jalur abu-abu sebagai latar batang agar panjang relatif mudah dibandingkan. */
+.hbar-track {
+    background-color: #EEE6DB;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Batang cokelat sangrai; lebarnya diatur JavaScript sesuai total panen. */
+.hbar-fill {
+    height: 1.25rem;
+    background-color: #5a3825;
+    border-radius: 4px;
+}
+
+.hbar-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--text-color);
+}
+
+@media (max-width: 600px) {
+    .hbar-row {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .hbar-value {
+        text-align: left;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Navigasi tetap satu baris; membungkus lebih hemat ruang daripada menumpuk. */
+    nav {
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        padding: 0.75rem 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    /* Pada layar kecil area batang sedikit lebih pendek agar tidak terlalu tinggi. */
+    .bar-area {
+        height: 180px;
+    }
+
+    .bar-item {
+        flex: 0 0 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 1rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    h2.section-title {
+        font-size: 1.25rem;
+    }
+
+    .container {
+        margin: 1.25rem auto;
+    }
+
+    .card {
+        padding: 1rem;
+        border-radius: 6px;
+    }
+
+    /* Tombol aksi memenuhi lebar sel agar mudah disentuh. */
+    td.actions {
+        white-space: normal;
+    }
+
+    .btn,
+    .btn-edit,
+    .btn-danger {
+        min-height: 40px;
+    }
+}
